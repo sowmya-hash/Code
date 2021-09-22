@@ -1,0 +1,90 @@
+<?php
+	defined('BASEPATH') OR exit('No direct script access allowed');
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- JQUERY CDN -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+		<title>form</title>
+		 <!-- External CSS link -->
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/index.css');?>">
+	</head>
+
+	<body>	
+		<form name="myForm" id="myform" method="post">
+	<div class="splash">
+		<h1 class="fade-in">Trivia App</h1>
+	</div>
+	
+	<div class="you">
+		<p>what is your name?</p>
+	</div>
+	   <div class='wrapper'>
+	<input type="text" name="name" placeholder="Enter Your name" id="fname_error" class="Name">
+</div>
+</form>
+ <input type="button" class="btn btn-primary" value="save data" id="butsave" style="margin-left: 800px; margin-top: 480px;">
+ <button class="button" onclick="location.href='<?php echo base_url();?>Form/locate'" style="left: 600px; margin-top: 100px;">Register</button>	 
+		<script>
+			const splash=document.querySelector('.splash');
+			document.addEventListener('DOMContentLoaded',(e)=>{
+				setTimeout(()=>{splash.classList.add('display-none');},2000);})
+
+		const header=document.querySelector('.header');
+		window.onscroll=function(){
+			var top=window.scrollY;
+			if(top>=50){
+				header.classList.add('active')
+			}
+			else{
+				header.classList.remove('active');
+			}
+		}
+		/* VALIDATION USING AJAX */
+			$(document).ready(function() 
+{
+
+$("#butsave").click(function()
+{
+var name = $('#fname_error').val();
+
+
+	if(name!="" )
+	{
+		jQuery.ajax({
+		type: "POST",
+		url: "<?php echo base_url('/Form/insert'); ?>",
+		dataType: 'html',
+		data: {name: name},
+		success: function(res) 
+		{
+			if(res==1)
+			{
+			alert('Data saved successfully');	
+			}
+			else
+			{
+			alert('Data not saved');	
+			}
+			
+		},
+		error:function()
+		{
+		alert('data not saved');	
+		}
+		});
+	}
+	else
+	{
+	alert("pls fill all fields first");
+	}
+
+});
+});
+			
+		</script>
+		
+	</body>
+</html>
