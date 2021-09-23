@@ -56,7 +56,7 @@ h2{
 	
 	
 		<h2>SUMMARY</h2>
-	<?php foreach($user as $post): ?>
+	<?php foreach($data as $post): ?>
 		<p>Game<?php echo $post->id; ?><span>:</span></p>
 		<p>Date and Time :<?php echo $post->CreatedDateTime; ?></p>
 

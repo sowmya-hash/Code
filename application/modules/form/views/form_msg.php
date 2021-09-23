@@ -94,15 +94,16 @@ var name = $('#fname_error').val();
 		data: {name: name},
 		success: function(res) 
 		{
-			if(res==1)
-			{
-			alert('Data saved successfully');
-			window.location = "<?php echo base_url();?>Form/locate"; 	
-			}
-			else
-			{
-			alert('Data not saved');	
-			}
+			// if(res==1)
+			// {
+			// alert('Data saved successfully');
+			// window.location = "<?php echo base_url();?>Form/locate"; 	
+			// }
+			// else
+			// {
+			// alert('Data not saved');	
+			// }
+			 window.location = "<?php echo base_url();?>Form/locate/"+res;
 			
 		},
 		error:function()

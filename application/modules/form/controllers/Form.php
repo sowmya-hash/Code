@@ -23,27 +23,12 @@
 		
 		public function summary(){
 
-			$this->db->select('UserName');	
+			
+			$this->db->select('*');	
 			$this->db->from('users');
-			$this->db->order_by('UserName', 'desc');
-			$this->db->limit(1);	
-			$retriev1 = $this->db->get();
-			$Data['EduData']=$retriev1->result();
-			$this->db->select('Player_Name');	
-			$this->db->from('users');
-			$this->db->order_by('Player_Name', 'desc');
-			$this->db->limit(1);	
-			$retriev1 = $this->db->get();
-			$Data['some']=$retriev1->result();
-			$this->db->select('ColorName');	
-			$this->db->from('color');
-			$this->db->order_by('id', 'desc');
-			$this->db->limit(1);	
-			$retriev1 = $this->db->get();
-			$Data['color']=$retriev1->result();
-
-
-			$this->load->view('summary',$Data);
+			$this->db->where("users.id",$this->uri->segment(3));
+			$result['data']=$this->db->get()->result();
+			$this->load->view('summary',$result);
 
 		}
 		
@@ -78,6 +63,7 @@ if ($this->form_validation->run() == false)
     }
 			else{
 		$data = array(
+
 	'UserName' => $this->input->post('name')
 	
 	
@@ -88,7 +74,7 @@ if ($this->form_validation->run() == false)
 		
 		if($result)
 		{
-		echo  1;	
+		echo  $result;	
 		}
 		else
 		{
@@ -99,18 +85,19 @@ if ($this->form_validation->run() == false)
   function player_insert(){
 
   
+
 		$data = array(
 	
 	'Player_Name' => $this->input->post('Question1')
 	
 		);
 		
-		$this->load->model('model_query');
-	
-		$result=$this->model_query->saveData($data);
+		// $this->load->model('model_query');
+	$query="UPDATE `users` SET `Player_Name`='".$this->input->post('Question1')."' WHERE id='".$this->input->post('userId')."' ";
+		$result=$this->db->query($query);
 		if($result)
 		{
-		return redirect('Form/multicheck'); 
+		return redirect('Form/multicheck/'.$this->input->post('userId')); 
 		}
 		else
 		{
@@ -128,7 +115,7 @@ if ($this->form_validation->run() == false)
 		
 		$this->load->model('model_query');
 	
-		$result=$this->model_query->savecolors($data);
+		$result=$this->model_query->saveData($data);
 		return redirect('Form/summary'); 
 	
 
@@ -144,31 +131,28 @@ if ($this->form_validation->run() == false)
 		 public function multicheck()
 		{ 
 			$this->load->view('update_msg');
-			if(isset($_POST['save']))
-			{
-				$user_id='id';//Pass the userid here
-				$checkbox = $_POST['check']; 
-				for($i=0;$i<count($checkbox);$i++){
-					$category_id = $checkbox[$i];
-
-					$this->load->model('model_query');
-					$this->model_query->multisave($user_id,$category_id);//Call the modal
-					
-				}
-				return redirect('Form/summary'); 
+			
 			}
 			
-		  
+		  function colorinsert(){
+		  	$color='';
+		  	foreach($this->input->post('check') as $key =>$value){
+		  		$color.=$value." , ";		  		
+		  	}
+		  	
+		  		$query="UPDATE `users` SET `ColorName`='".$color."' WHERE id='".$this->input->post('userId')."' ";
+		$result=$this->db->query($query);
+		  	return redirect('Form/summary/'.$this->input->post('userId'));
+		  }
 
-		}
+		
 		public function History()
 		{ 
-			$this->db->where('id IS NOT NULL', null, false);
-            $this->db->select('*');	
-			$this->db->from('users');
 			
-			$retriev1 = $this->db->get();
-			$Data['user']=$retriev1->result();
+			$this->db->select('*');	
+			$this->db->from('users');
+			$this->db->join("colour","colour.userId=users.id","left");
+			$Data['data']=$this->db->get()->result();
 			
 			$this->load->view('History',$Data);
 		  

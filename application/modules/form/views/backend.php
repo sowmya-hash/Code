@@ -102,8 +102,8 @@ p{
 		<!-- <div class="right">
 			<a style="border: 1px solid red; background-color: red;" href="<?php echo base_url(); ?>">next</a> -->	<!--Link to form  -->
 			<!-- CODE FOR DISPLAY DATA IN TABLE -->
-			<form class="" id="myform" action="Form/player_insert" method="post">
-				
+			<form class="" id="myform" action="<?php echo base_url(); ?>Form/player_insert" method="post">
+				<input type="hidden" name="userId" value="<?=$this->uri->segment(3);?>">
 			<div class="question1"style="margin-right: 350px;">
 		<p>Who is the best cricketer in the world?</p>
 	</div>

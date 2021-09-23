@@ -57,9 +57,8 @@ h2{
 		 
 
 	
-	
 		<h2>SUMMARY</h2>
-<?php foreach($EduData as $post): ?>
+<?php foreach($data as $post): ?>
 	
 		
 <h3>Hello:"<?php echo $post->UserName; ?>"</h3>
@@ -70,14 +69,14 @@ h2{
 
 <h3>Who is the best cricketer in the world?</h3>
 
- <?php foreach($some as $get): ?>
+ <?php foreach($data as $get): ?>
 	
 <p>Answer:"<?php echo $get->Player_Name; ?>"</p>
 <?php   endforeach;?> </p>
 
 <h3>What are the colors in the national flag?</h3>
 
- <?php foreach($color as $var): ?>
+ <?php foreach($data as $var): ?>
 <p>Answer":<?php echo $var->ColorName; ?>"</p>
 <?php   endforeach;?> </p>
 

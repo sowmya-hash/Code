@@ -1,13 +1,14 @@
 <?php
 class model_query extends CI_Model 
 {  
-    public function saveData($data) 
+    public function saveData($data,$last_id='') 
   
 	{
-		if($this->db->insert('users',$data)){
+	
+		$this->db->insert('users',$data);
   $last_id=$this->db->insert_id();
   return  $last_id;
-}
+
     return false;
 }
      public function savePlayer($data) 
