@@ -16,14 +16,11 @@
 			$Data['content'] = 'backend';
 			$this->load->view('page',$Data);
 		}
-		// public function question_1(){
-		// 	$Data['content'] = 'update_msg';
-		// 	$this->load->view('page',$Data);
-		// }
-		public function question_2(){
-			$Data['content'] = 'summary';
+		public function question_1(){
+			$Data['content'] = 'update_msg';
 			$this->load->view('page',$Data);
 		}
+		
 		public function summary(){
 
 			$this->db->select('UserName');	
@@ -33,11 +30,17 @@
 			$retriev1 = $this->db->get();
 			$Data['EduData']=$retriev1->result();
 			$this->db->select('Player_Name');	
-			$this->db->from('cricket');
+			$this->db->from('users');
 			$this->db->order_by('Player_Name', 'desc');
 			$this->db->limit(1);	
 			$retriev1 = $this->db->get();
 			$Data['some']=$retriev1->result();
+			$this->db->select('ColorName');	
+			$this->db->from('color');
+			$this->db->order_by('id', 'desc');
+			$this->db->limit(1);	
+			$retriev1 = $this->db->get();
+			$Data['color']=$retriev1->result();
 
 
 			$this->load->view('summary',$Data);
@@ -50,18 +53,29 @@
 
 		function insert()
 		{
-$this->form_validation->set_rules('name', 'UserName','required');
-if ($this->form_validation->run() === false)
+			   $this->load->helper(array('form', 'url'));
+			
+         /* Load form validation library */ 
+         $this->load->library('form_validation');
+			
+         /* Set validation rule for name field in the form */ 
+       
+			
+       
+  $this->form_validation->set_rules('name', 'UserName', 'required');
+               
+                        array('required' => 'You must provide a %s.');
+if ($this->form_validation->run() == false)
 			{
-				$array = array(
-					'fname_error' => form_error('name'),
-					
-					
-					'status' => 'failed',
-					'message' => 'Unable to save data'
-				);
-				echo json_encode($array);
-			}
+				$config = array(
+        array(
+                'field' => 'name',
+                'label' => 'Username',
+                'rules' => 'required'
+        )
+    );
+        $this->form_validation->set_rules($config);
+    }
 			else{
 		$data = array(
 	'UserName' => $this->input->post('name')
@@ -96,7 +110,7 @@ if ($this->form_validation->run() === false)
 		$result=$this->model_query->saveData($data);
 		if($result)
 		{
-		echo  1;	
+		return redirect('Form/multicheck'); 
 		}
 		else
 		{
@@ -107,7 +121,7 @@ if ($this->form_validation->run() === false)
   
 		$data = array(
 	
-	'ColorName' => $this->input->post('scales')
+	'ColorName' =>implode(",", $this->input->post('check'))
 	
 		);
 
@@ -115,8 +129,10 @@ if ($this->form_validation->run() === false)
 		$this->load->model('model_query');
 	
 		$result=$this->model_query->savecolors($data);
-		// print_r($result);
-		echo json_encode(["status"=>'success',"message"=>'Successfully Submitted']);
+		return redirect('Form/summary'); 
+	
+
+
 	}
         
   
@@ -124,19 +140,7 @@ if ($this->form_validation->run() === false)
 		/* Retrieve and Display the data from the database */
 		/* Stored the retrieve in the variable */
 		
-		function view()
-		{
-			alert('hi');
-			 $data['query']="hello";
-			
-			$this->load->view('summary', $data['query']);
-			
-		// 	$this->db->select('*');	
-		// 	$this->db->from('employeeeducationaldetails');	
-		// 	$retriev1 = $this->db->get();
-		// 	$data['EduData']=$retriev1->result();
-		// 	$this->load->view('page',$data);
-		 }
+		
 		 public function multicheck()
 		{ 
 			$this->load->view('update_msg');
@@ -151,13 +155,24 @@ if ($this->form_validation->run() === false)
 					$this->model_query->multisave($user_id,$category_id);//Call the modal
 					
 				}
-				echo "Data added successfully!";
+				return redirect('Form/summary'); 
 			}
-		}
-		
-	
+			
+		  
 
-		
+		}
+		public function History()
+		{ 
+			$this->db->where('id IS NOT NULL', null, false);
+            $this->db->select('*');	
+			$this->db->from('users');
+			
+			$retriev1 = $this->db->get();
+			$Data['user']=$retriev1->result();
+			
+			$this->load->view('History',$Data);
+		  
+		}
 		
 	}
 ?>

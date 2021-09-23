@@ -3,14 +3,44 @@
 ?>
 <!DOCTYPE html>
 <html>
-<style type="text/css">
-	body{
-	color:blue;
+<style type="text/css">	/* INTERNAL CSS */
+			body{
+				
 				background-color:pink;
 				text-align:center;
-				margin-top: 300px;
+				margin-top: 200px;
+			}
+			.button{
+	background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
 }
-</style>
+.this{
+	background-color: salmon; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+h3{
+	color:#006600;
+}
+p{
+	color:#404040;
+}
+h2{
+	color:#1a001a;
+}	
+	</style>
 	<head>
 		<!-- JQUERY CDN -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,71 +49,25 @@
 		 <!-- External CSS link -->
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/index.css');?>">
 	</head>
+
 	<body>	
-	
-		<!-- <div class="right">
-			<a style="border: 1px solid red; background-color: red;" href="<?php echo base_url(); ?>">next</a> -->	<!--Link to form  -->
-			<!-- CODE FOR DISPLAY DATA IN TABLE -->
-			<form id=question id="myform" method="post">
-			<div class="question1"style="margin-right: 350px;">
-		<p>Who is the best cricketer in the world?</p>
-	</div>
-	<div class="questionS"style="margin-right: 350px;">
-	<p>Options:</p>
-	<input type="radio" id="Question_error" name="Question1" value="Sachin">
-<label for="Sachin Tendulkar">A) Sachin Tendulkar</label><br><br>
-<input type="radio" id="Question_error" name="Question1" value="Kohli">
-<label for="Virat Kolli">B) Virat Kohli</label><br><br>
-<input type="radio" id="Question_error" name="Question1" value="Gilchirst">
-<label for="Adam Gilchirst">C) Adam Gilchirst</label><br><br>
-<input type="radio" id="Question_error" name="Question1" value="adam">
-<label for="Jacques Kallis">D) Jacques Kallis</label><br><br>
-</div>
-<div id="result"></div>  
-</form>
-<input type="button" class="btn btn-primary" value="save data" id="save">
- <button class="button" onclick="location.href='<?php echo base_url();?>Form/question_1'">Register</button>
+		 
 
 	
+	
+		<h2>SUMMARY</h2>
+	<?php foreach($user as $post): ?>
+		<p>Game<?php echo $post->id; ?><span>:</span></p>
+		<p>Date and Time :<?php echo $post->CreatedDateTime; ?></p>
+
+	<p>Name:"<?php echo $post->UserName; ?>"</p>
+
+<h3>Who is the best cricketer in the world?<h3>
+<p>Answer: <?php echo $post->Player_Name; ?></p>
+
+<h3>What are the colors in the national flag?<h3>
+<p>Answer: <?php echo $post->ColorName; ?></p>
+<?php   endforeach;?>	
+
 	</body>
 </html>
-<script>
-$(document).ready(function() 
-{
-
-$("#save").click(function()
-{
-var Question1 = $('#Question_error').val();
-	if(Question1!="" )
-	{
-		jQuery.ajax({
-		type: "POST",
-		url: "<?php echo base_url('/Form/player_insert'); ?>",
-		dataType: 'html',
-		data: {Question1: Question1},
-		success: function(res) 
-		{
-			if(res==1)
-			{
-			alert('Data saved successfully');	
-			}
-			else
-			{
-			alert('Data not saved');	
-			}
-			
-		},
-		error:function()
-		{
-		alert('data not saved');	
-		}
-		});
-	}
-	else
-	{
-	alert("pls fill all fields first");
-	}
-
-});
-});
-</script>

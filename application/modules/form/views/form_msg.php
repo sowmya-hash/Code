@@ -9,11 +9,30 @@
 				background-color:pink;
 				text-align:center;
 				margin-top: 300px;
-}
-.required:after {
-    content:"*";
-    color: red;
 
+}
+
+.button{
+	background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-right: 100px;
+
+}
+input[type=text] {
+  width: 30%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 </style>
 
 	<head>
@@ -31,15 +50,15 @@
 		<h1 class="fade-in">Trivia App</h1>
 	</div>
 	
-	<div class="you" style="margin-right: 350px;">
-		<label class="required">what is your name?</label>
+	<div class="you" style="margin-right: 370px;">
+		<h3 style="margin-left: 210px;">what is your name?<span style="color: red">*</span></h3>
 	</div>
 	   <div class='wrapper'>
-	<input type="text" name="name" placeholder="Enter Your name" id="fname_error" class="Name" required>
+	<input type="text" name="name" placeholder="Enter Your name" id="fname_error" class="Name" required onkeypress="return /[a-z]/i.test(event.key)">
 </div>
 </form><br>
- <input type="button" class="btn btn-primary" value="save data" id="butsave" >
- <button class="button" onclick="location.href='<?php echo base_url();?>Form/locate'">Register</button>	 
+ <input type="button" class="button" value="Next" id="butsave" >
+ 	 
 		<script>
 			const splash=document.querySelector('.splash');
 			document.addEventListener('DOMContentLoaded',(e)=>{
@@ -63,23 +82,22 @@ $("#butsave").click(function()
 {
 var name = $('#fname_error').val();
 
-var Question1 = $('#Player_Name').val();
-
-var scales = $('#scales_error').val();
 
 
-	if(name!="" && Question1!=""&& scales!="" )
+
+	if(name!="")
 	{
 		jQuery.ajax({
 		type: "POST",
 		url: "<?php echo base_url('/Form/insert'); ?>",
 		dataType: 'json',
-		data: {name: name,Question1:Question1,scales:scales},
+		data: {name: name},
 		success: function(res) 
 		{
 			if(res==1)
 			{
-			alert('Data saved successfully');	
+			alert('Data saved successfully');
+			window.location = "<?php echo base_url();?>Form/locate"; 	
 			}
 			else
 			{
