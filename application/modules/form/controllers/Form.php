@@ -121,9 +121,7 @@ if ($this->form_validation->run() == false)
 
 
 	}
-        
-  
-
+    
 		/* Retrieve and Display the data from the database */
 		/* Stored the retrieve in the variable */
 		

@@ -30,6 +30,18 @@
   display: inline-block;
   font-size: 16px;
 }
+.button{
+	background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-right: 100px;
+
+}
 
 h3{
 	color:#006600;
@@ -39,7 +51,10 @@ p{
 }
 h2{
 	color:#1a001a;
-}	
+}
+.that{
+	color:orange;
+}
 	</style>
 	<head>
 		<!-- JQUERY CDN -->
@@ -57,8 +72,8 @@ h2{
 	
 		<h2>SUMMARY</h2>
 	<?php foreach($data as $post): ?>
-		<p>Game<?php echo $post->id; ?><span>:</span></p>
-		<p>Date and Time :<?php echo $post->CreatedDateTime; ?></p>
+		<h3>Game<?php echo $post->id; ?><span>:</span></h3>
+		<label class="that">Date and Time :<?php echo $post->CreatedDateTime; ?></label>
 
 	<p>Name:"<?php echo $post->UserName; ?>"</p>
 
@@ -67,7 +82,7 @@ h2{
 
 <h3>What are the colors in the national flag?<h3>
 <p>Answer: <?php echo $post->ColorName; ?></p>
-<?php   endforeach;?>	
+<?php   endforeach;?>
 
 	</body>
 </html>

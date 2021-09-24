@@ -77,7 +77,7 @@ h2{
 <h3>What are the colors in the national flag?</h3>
 
  <?php foreach($data as $var): ?>
-<p>Answer":<?php echo $var->ColorName; ?>"</p>
+<p>Answer":<?php echo $var->ColorName;?>"</p>
 <?php   endforeach;?> </p>
 
  <input type="button" onclick="location.href='<?php echo base_url();?>Form/History'" class="this" value="History" id="save">

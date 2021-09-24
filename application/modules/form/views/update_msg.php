@@ -98,12 +98,12 @@ p{
 </head>
 <body>
   <form class="" id="myform" action="<?php echo base_url(); ?>Form/colorinsert" method="post"><div class="question1"style="margin-left: 30px;">
-    <p>What are the colors in the Indian national flag? Select all:</p>
+    <p>What are the colors in the Indian national flag? Select all:<span style="color: red">*</span></h3></p>
   </div>
  
 <input type="hidden" name="userId" value="<?=$this->uri->segment(3);?>">
 <label class="container">White
-  <input type="checkbox"  id="checkItem" name="check[]"value="White">
+  <input type="checkbox"  id="checkItem" name="check[]"value="White" required>
   <span class="checkmark" style="margin-left: 900px;"></span>
 </label>
 <label class="container">Yellow
@@ -119,7 +119,7 @@ p{
   <span class="checkmark" style="margin-left: 900px;"></span>
 </label>
 
- <button type="submit"  onclick=" deleteData()" name="button" class="button"> Next </button> 
+ <button type="submit"  onclick=" deleteData()" name="button" class="button" style="margin-left: 30px;"> Next </button> 
 
  <h3 id="disp" style= "color:green"> </h3>  
 <h4 id="error" style= "color:red"> </h4>  

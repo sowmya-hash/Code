@@ -105,7 +105,7 @@ p{
 			<form class="" id="myform" action="<?php echo base_url(); ?>Form/player_insert" method="post">
 				<input type="hidden" name="userId" value="<?=$this->uri->segment(3);?>">
 			<div class="question1"style="margin-right: 350px;">
-		<p>Who is the best cricketer in the world?</p>
+		<p>Who is the best cricketer in the world?<span style="color: red">*</span></h3></p>
 	</div>
 	<div class="questionS"style="margin-right: 350px;">
 	<p>Options:</p>
